@@ -97,31 +97,31 @@ Use `list` without `--id` to list rows. For example, `shop products list --limit
 
 ## Live CRUD screenshots
 
-These browser captures display the commands and JSON responses recorded from a live CLI run against **ax1_study** on **November 16, 2026 (KST)**. JSON whitespace was condensed for readability. Each table assigned ID 1 to its own demonstration record.
+The four screenshots below were captured directly in the **ax1_study Supabase SQL Editor** using Ego Lite. Each shows the SQL that ran and the result grid returned by the hosted database. The member, product, and order each received ID 2 in their respective tables during this run.
 
 ### Create
 
-The member and product were created first. The order response contains both returned parent IDs.
+The first two inserts created Demo Kim and a Reading lamp. The third insert used the returned parent IDs to create a pending order for one lamp at 18,000 KRW.
 
-![Three create commands and their returned rows](docs/screenshots/create.png)
+![Supabase INSERT statements and the new order with its member and product IDs](docs/screenshots/create.png)
 
 ### Read
 
-A separate lookup by primary key retrieved each of the three stored rows.
+A separate SELECT joined the order to its member and product using both foreign keys. The result shows Demo Kim, Reading lamp, and a quantity of 1.
 
-![Three primary-key lookups with the stored rows](docs/screenshots/read.png)
+![Supabase SELECT joining the order to Demo Kim and the Reading lamp](docs/screenshots/read.png)
 
 ### Update
 
-The member name changed to Updated Member, the catalog price to 21000, and the order quantity to 2. The order retained its original unit price of 18000. A second read of each row verified that the changes persisted.
+The three updates changed the member name to Demo Lee, the catalog price to 21,000 KRW, and the order quantity to 2. The result also shows that the recorded purchase price stayed at 18,000 KRW.
 
-![Three update commands and returned updated values](docs/screenshots/update.png)
+![Supabase UPDATE statements with the new member name, catalog price, and quantity beside the original purchase price](docs/screenshots/update.png)
 
 ### Delete
 
-The order was deleted first, followed by the product and member. Each delete returned the removed row, and each subsequent lookup returned an empty array.
+The transaction deleted the demo order before its referenced product and member. After the commit, a count for each demo ID returned zero.
 
-![Three deletions, each followed by a lookup returning an empty array](docs/screenshots/delete.png)
+![Supabase DELETE statements and a result grid showing zero remaining matches in all three tables](docs/screenshots/delete.png)
 
 ## Run the tests
 
